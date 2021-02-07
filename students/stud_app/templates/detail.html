@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Course Details</title>
+  <meta charset="utf-8">
+  {% load static %}  
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">    
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-treegrid/0.2.0/css/jquery.treegrid.css" rel="stylesheet"><script src="//code.jquery.com/jquery-1.12.0.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-treegrid/0.2.0/js/jquery.treegrid.min.js"></script>
+  <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+</head>
+<body>
+{% load define_action %}
+<div class="container">
+<div class = "row"><div class = "row header"><B> Student Summary</B> </div>
+	<div class ="col-md-6">
+		Name : {{student.Name}}
+	</div>
+	<div class ="col-md-6">		
+		Roll No : {{student.Roll_No}} 
+	</div>
+	<div class ="col-md-6">
+		College / University : {{student.College}}
+	</div>
+	<div class ="col-md-6">	
+		Academic year : 2019-2020
+	</div>
+	<div class ="col-md-6">
+		Semester : {{sem_id}}
+	</div>
+	<div class ="col-md-6">	
+		Overall Marks : {{Ovr_mrks}}
+	</div>
+</div>
+<div class="row">
+	<table class="tree table table-bordered sortable">
+		<thead>
+			<tr>
+				<th field="name" width="250">Course list</th>
+				<th field="Marks" width="250" align="right" >Marks</th>
+			</tr>
+		</thead> 
+		  <tbody>
+			
+			
+			{% setglobal c 0 %}
+			{% setglobal d 0 %}
+			{% for crs in course %}
+			   
+				{% incrementglobal c %}
+				
+				<tr class="treegrid-{% getglobal c %} Course"><td>{{crs.Course}}</td><td>{{crs.Marks}}</td></tr>
+				{% Cpyglobal d c %}
+				{% for tp in Test_paper %}
+					
+				
+					{% ifequal tp.Par_course crs.Course %}
+					{% incrementglobal c %}
+					
+					<tr class="treegrid-{% getglobal c %} treegrid-parent-{% getglobal d %} testppr"><td>{{tp.Course}}</td><td>{{tp.Marks}}</td></tr>
+					
+					{% endifequal %}
+					
+				{% endfor %}
+
+			{% endfor %}
+	
+		  </tbody>
+	</table>
+</div>
+<script>
+$('.tree').treegrid();
+
+</script>
+</body>
+</html>

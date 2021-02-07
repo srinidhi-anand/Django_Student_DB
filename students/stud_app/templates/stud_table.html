@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Student Database</title>
+  <meta charset="utf-8">
+  {% load static %}  
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">    
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+  <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+</head>
+<body> 
+<div class="container">
+<div class = "row"><B><h2> Student details</h2></B> </div>
+<table class="table table-bordered sortable">
+    <thead>
+      <tr>
+        <th>Student ID</th>
+		<th>Name</th>
+		<th>Roll Number</th>
+		<th>College</th>
+		<th>Semester</th>
+      </tr>
+    </thead>
+    <tbody>
+	{% for stud in student %} 
+		{% for sem in sem_list %}  
+		  <tr>
+			<td><a href='{{stud.Id}}/{{sem}}'>{{stud.Id}}</a></td>
+			<td>{{stud.Name}}</td>
+			<td>{{stud.Roll_No}}</td>
+			<td>{{stud.College}}</td>
+			<td>{{sem}}</td>
+		  </tr>
+	  {% endfor %} 
+	  {% endfor %} 
+	</tbody>
+</table>	
+</div>
+</body>
+</html>
